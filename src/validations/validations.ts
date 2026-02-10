@@ -1,11 +1,18 @@
-import { REGEX, VALIDATION_MESSAGES, FIELD_VALIDATION } from '../constants/constants';
-import { FormErrors } from '../types/types';
+import {
+  REGEX,
+  VALIDATION_MESSAGES,
+  FIELD_VALIDATION,
+} from "../constants/constants";
+import { FormErrors } from "../types/types";
 
 export const validateEmail = (email: string): boolean => {
   return REGEX.EMAIL.test(email);
 };
 
 export const validatePassword = (password: string): boolean => {
+  if (password.length < 9 || password.length > 20) {
+    return false;
+  }
   return REGEX.PASSWORD.test(password);
 };
 
@@ -22,7 +29,14 @@ export const validateMinLength = (value: string, min: number): boolean => {
 };
 
 export const validatePhone = (phone: string): boolean => {
-  return phone.trim().length > 0 && phone.length <= FIELD_VALIDATION.TELEFONO.MAX;
+  if (!phone || phone.trim().length === 0) {
+    return false;
+  }
+  const cleanPhone = phone.replace(/[\s\-()]/g, "");
+  if (!/^[0-9]+$/.test(cleanPhone)) {
+    return false;
+  }
+  return cleanPhone.length >= 7 && cleanPhone.length < 20;
 };
 
 export const validateName = (name: string): boolean => {
@@ -41,8 +55,7 @@ export const validateApellidos = (apellidos: string): boolean => {
 
 export const validateIdentificacion = (id: string): boolean => {
   return (
-    id.trim().length > 0 &&
-    id.length <= FIELD_VALIDATION.IDENTIFICACION.MAX
+    id.trim().length > 0 && id.length <= FIELD_VALIDATION.IDENTIFICACION.MAX
   );
 };
 
@@ -55,8 +68,7 @@ export const validateDireccion = (direccion: string): boolean => {
 
 export const validateResena = (resena: string): boolean => {
   return (
-    resena.trim().length > 0 &&
-    resena.length <= FIELD_VALIDATION.RESENA.MAX
+    resena.trim().length > 0 && resena.length <= FIELD_VALIDATION.RESENA.MAX
   );
 };
 
@@ -72,7 +84,7 @@ export const validateDate = (fecha: string): boolean => {
 
 export const validateLoginForm = (
   username: string,
-  password: string
+  password: string,
 ): FormErrors => {
   const errors: FormErrors = {};
 
@@ -91,7 +103,7 @@ export const validateRegisterForm = (
   username: string,
   email: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
 ): FormErrors => {
   const errors: FormErrors = {};
 
@@ -132,31 +144,35 @@ export const validateClienteForm = (clienteData: any): FormErrors => {
   if (!clienteData.apellidos?.trim()) {
     errors.apellidos = VALIDATION_MESSAGES.REQUIRED;
   } else if (!validateApellidos(clienteData.apellidos)) {
-    errors.apellidos = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.APELLIDOS.MAX);
+    errors.apellidos = VALIDATION_MESSAGES.MAX_LENGTH(
+      FIELD_VALIDATION.APELLIDOS.MAX,
+    );
   }
 
   if (!clienteData.identificacion?.trim()) {
     errors.identificacion = VALIDATION_MESSAGES.REQUIRED;
   } else if (!validateIdentificacion(clienteData.identificacion)) {
     errors.identificacion = VALIDATION_MESSAGES.MAX_LENGTH(
-      FIELD_VALIDATION.IDENTIFICACION.MAX
+      FIELD_VALIDATION.IDENTIFICACION.MAX,
     );
   }
 
   if (!clienteData.celular?.trim()) {
     errors.celular = VALIDATION_MESSAGES.REQUIRED;
   } else if (!validatePhone(clienteData.celular)) {
-    errors.celular = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.TELEFONO.MAX);
+    errors.celular = "Debe tener entre 7 y 20 números"
   }
 
   if (clienteData.otroTelefono && !validatePhone(clienteData.otroTelefono)) {
-    errors.otroTelefono = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.TELEFONO.MAX);
+    errors.otroTelefono = "Debe tener entre 7 y 20 números"
   }
 
   if (!clienteData.direccion?.trim()) {
     errors.direccion = VALIDATION_MESSAGES.REQUIRED;
   } else if (!validateDireccion(clienteData.direccion)) {
-    errors.direccion = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.DIRECCION.MAX);
+    errors.direccion = VALIDATION_MESSAGES.MAX_LENGTH(
+      FIELD_VALIDATION.DIRECCION.MAX,
+    );
   }
 
   if (!clienteData.fNacimiento) {
@@ -180,7 +196,9 @@ export const validateClienteForm = (clienteData: any): FormErrors => {
   if (!clienteData.resennaPersonal?.trim()) {
     errors.resennaPersonal = VALIDATION_MESSAGES.REQUIRED;
   } else if (!validateResena(clienteData.resennaPersonal)) {
-    errors.resennaPersonal = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.RESENA.MAX);
+    errors.resennaPersonal = VALIDATION_MESSAGES.MAX_LENGTH(
+      FIELD_VALIDATION.RESENA.MAX,
+    );
   }
 
   if (!clienteData.interesFK) {
@@ -191,5 +209,7 @@ export const validateClienteForm = (clienteData: any): FormErrors => {
 };
 
 export const hasErrors = (errors: FormErrors): boolean => {
-  return Object.values(errors).some(error => error !== undefined && error !== null);
+  return Object.values(errors).some(
+    (error) => error !== undefined && error !== null,
+  );
 };

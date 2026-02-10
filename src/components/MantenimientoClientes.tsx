@@ -77,6 +77,7 @@ const MantenimientoClientes: React.FC = () => {
     } else {
       setFetching(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadIntereses = async (): Promise<void> => {

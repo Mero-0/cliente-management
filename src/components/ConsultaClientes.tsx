@@ -69,6 +69,7 @@ const ConsultaClientes: React.FC = () => {
     loadClientes();
     loadIntereses();
     logger.info("ConsultaClientes página montada");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadClientes = async (): Promise<void> => {
