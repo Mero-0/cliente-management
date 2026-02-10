@@ -31,13 +31,15 @@ export interface Cliente {
   nombre: string;
   apellidos: string;
   identificacion: string;
-  telefonoCelular: string;
+  celular: string;
+  telefonoCelular?: string;
   otroTelefono?: string;
   direccion: string;
   fNacimiento: string;
   fAfiliacion: string;
   sexo: "M" | "F";
-  resenaPersonal: string;
+  resennaPersonal: string;
+  resenaPersonal?: string;
   imagen?: string;
   interesesId: string;
 }
@@ -53,13 +55,13 @@ export interface CreateClienteData {
   nombre: string;
   apellidos: string;
   identificacion: string;
-  telefonoCelular: string;
+  celular: string;
   otroTelefono: string;
   direccion: string;
   fNacimiento: string;
   fAfiliacion: string;
   sexo: 'M' | 'F';
-  resenaPersonal: string;
+  resennaPersonal: string;
   imagen: string | null;
   interesFK: string;
   usuarioId: string;
@@ -67,27 +69,23 @@ export interface CreateClienteData {
 
 export interface UpdateClienteData extends CreateClienteData {
   id: string;
-  celular?: string;
-  resennaPersonal?: string;
 }
 
 export interface ClienteFormData {
   nombre: string;
   apellidos: string;
   identificacion: string;
-  telefonoCelular: string;
+  celular: string;
   otroTelefono: string;
   direccion: string;
   fNacimiento: string;
   fAfiliacion: string;
   sexo: "M" | "F";
-  resenaPersonal: string;
+  resennaPersonal: string;
   imagen: string | null;
   interesFK: string;
   usuarioId?: string;
   id?: string;
-  celular?: string;
-  resennaPersonal?: string;
 }
 
 export interface Interes {

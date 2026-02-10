@@ -143,10 +143,10 @@ export const validateClienteForm = (clienteData: any): FormErrors => {
     );
   }
 
-  if (!clienteData.telefonoCelular?.trim()) {
-    errors.telefonoCelular = VALIDATION_MESSAGES.REQUIRED;
-  } else if (!validatePhone(clienteData.telefonoCelular)) {
-    errors.telefonoCelular = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.TELEFONO.MAX);
+  if (!clienteData.celular?.trim()) {
+    errors.celular = VALIDATION_MESSAGES.REQUIRED;
+  } else if (!validatePhone(clienteData.celular)) {
+    errors.celular = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.TELEFONO.MAX);
   }
 
   if (clienteData.otroTelefono && !validatePhone(clienteData.otroTelefono)) {
@@ -177,10 +177,10 @@ export const validateClienteForm = (clienteData: any): FormErrors => {
     errors.sexo = VALIDATION_MESSAGES.INVALID_FORMAT;
   }
 
-  if (!clienteData.resenaPersonal?.trim()) {
-    errors.resenaPersonal = VALIDATION_MESSAGES.REQUIRED;
-  } else if (!validateResena(clienteData.resenaPersonal)) {
-    errors.resenaPersonal = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.RESENA.MAX);
+  if (!clienteData.resennaPersonal?.trim()) {
+    errors.resennaPersonal = VALIDATION_MESSAGES.REQUIRED;
+  } else if (!validateResena(clienteData.resennaPersonal)) {
+    errors.resennaPersonal = VALIDATION_MESSAGES.MAX_LENGTH(FIELD_VALIDATION.RESENA.MAX);
   }
 
   if (!clienteData.interesFK) {

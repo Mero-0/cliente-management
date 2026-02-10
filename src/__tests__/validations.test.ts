@@ -123,13 +123,13 @@ describe('Validaciones', () => {
       nombre: 'Juan',
       apellidos: 'Pérez',
       identificacion: '12345678',
-      telefonoCelular: '1234567890',
+      celular: '1234567890',
       otroTelefono: '',
       direccion: 'Calle 123',
       fNacimiento: '1990-01-01',
       fAfiliacion: '2022-01-01',
       sexo: 'M',
-      resenaPersonal: 'Cliente regular',
+      resennaPersonal: 'Cliente regular',
       interesFK: 'id-interes'
     };
 

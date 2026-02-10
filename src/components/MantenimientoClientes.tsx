@@ -31,6 +31,7 @@ import {
   CreateClienteData,
 } from "../types/types";
 import { logger } from "../utils/logger";
+import { formatDateForInput } from "../utils/dateFormatter";
 import MantenimientoClientesStyles from "../styles/MantenimientoClientesStyles";
 
 const MantenimientoClientes: React.FC = () => {
@@ -52,13 +53,13 @@ const MantenimientoClientes: React.FC = () => {
     nombre: "",
     apellidos: "",
     identificacion: "",
-    telefonoCelular: "",
+    celular: "",
     otroTelefono: "",
     direccion: "",
     fNacimiento: "",
     fAfiliacion: "",
     sexo: undefined,
-    resenaPersonal: "",
+    resennaPersonal: "",
     imagen: null,
     interesFK: "",
   });
@@ -96,13 +97,13 @@ const MantenimientoClientes: React.FC = () => {
         nombre: cliente.nombre,
         apellidos: cliente.apellidos,
         identificacion: cliente.identificacion,
-        telefonoCelular: cliente.telefonoCelular,
+        celular: cliente.celular || cliente.telefonoCelular,
         otroTelefono: cliente.otroTelefono || "",
         direccion: cliente.direccion,
-        fNacimiento: cliente.fNacimiento,
-        fAfiliacion: cliente.fAfiliacion,
+        fNacimiento: formatDateForInput(cliente.fNacimiento),
+        fAfiliacion: formatDateForInput(cliente.fAfiliacion),
         sexo: cliente.sexo,
-        resenaPersonal: cliente.resenaPersonal,
+        resennaPersonal: cliente.resennaPersonal || cliente.resenaPersonal,
         imagen: cliente.imagen || null,
         interesFK: cliente.interesesId,
       });
@@ -184,8 +185,8 @@ const MantenimientoClientes: React.FC = () => {
           id,
           ...formData,
           usuarioId: userId,
-          celular: formData.telefonoCelular,
-          resennaPersonal: formData.resenaPersonal,
+          celular: formData.celular,
+          resennaPersonal: formData.resennaPersonal,
         } as any);
         setSuccess("Cliente actualizado correctamente");
         logger.info("Cliente actualizado", { clienteId: id });
@@ -371,11 +372,11 @@ const MantenimientoClientes: React.FC = () => {
                         <span className={classes.asterisk}>*</span>
                       </span>
                     }
-                    name="telefonoCelular"
-                    value={formData.telefonoCelular || ""}
+                    name="celular"
+                    value={formData.celular || ""}
                     onChange={handleInputChange}
-                    error={!!errors.telefonoCelular}
-                    helperText={errors.telefonoCelular}
+                    error={!!errors.celular}
+                    helperText={errors.celular}
                     InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
@@ -421,13 +422,13 @@ const MantenimientoClientes: React.FC = () => {
                         <span className={classes.asterisk}>*</span>
                       </span>
                     }
-                    name="resenaPersonal"
+                    name="resennaPersonal"
                     multiline
                     rows={4}
-                    value={formData.resenaPersonal || ""}
+                    value={formData.resennaPersonal || ""}
                     onChange={handleInputChange}
-                    error={!!errors.resenaPersonal}
-                    helperText={errors.resenaPersonal}
+                    error={!!errors.resennaPersonal}
+                    helperText={errors.resennaPersonal}
                     InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
