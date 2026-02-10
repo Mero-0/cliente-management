@@ -10,83 +10,20 @@ import {
   MenuItem,
   IconButton,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import { AuthContext } from "../context/AuthContext";
 import { DrawerContext } from "../context/DrawerContext";
 import SideDrawer from "./SideDrawer";
 import { ROUTES } from "../constants/constants";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    backgroundColor: "#34495e",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  title: {
-    flexGrow: 1,
-    fontWeight: 600,
-    fontSize: "1.3rem",
-    color: "white",
-  },
-  userSection: {
-    display: "flex",
-    alignItems: "center",
-    gap: theme.spacing(2),
-  },
-  username: {
-    color: "#fff",
-    fontWeight: 500,
-    marginRight: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  logoutButton: {
-    color: "#fff",
-    textTransform: "uppercase",
-    fontWeight: 600,
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.1)",
-    },
-  },
-  menuItem: {
-    "&:hover": {
-      backgroundColor: "#ecf0f1",
-    },
-  },
-  navButtons: {
-    display: "flex",
-    gap: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      gap: theme.spacing(0.5),
-    },
-  },
-  navButton: {
-    color: "#fff",
-    textTransform: "uppercase",
-    fontWeight: 600,
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.1)",
-    },
-  },
-  menuButton: {
-    color: "#fff",
-    marginRight: theme.spacing(1),
-  },
-}));
+import NavBarStyles from "../styles/NavBarStyles";
 
 interface INavBarProps {
   onNavigateHome: () => void;
 }
 
 const NavBar: React.FC<INavBarProps> = ({ onNavigateHome }) => {
-  const classes = useStyles();
+  const classes = NavBarStyles();
   const navigate = useNavigate();
   const { username, logout } = useContext(AuthContext);
   const drawerContext = useContext(DrawerContext);

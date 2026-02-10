@@ -22,66 +22,19 @@ import {
   Snackbar,
   Grid,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import { AuthContext } from "../context/AuthContext";
 import { DrawerContext } from "../context/DrawerContext";
 import { ClienteContext } from "../context/ClienteContext";
-import { clienteService } from "../services/api";
-import { interesesService } from "../services/api";
+import { clienteService, interesesService } from "../services/api";
 import NavBar from "./NavBar";
 import { ROUTES } from "../constants/constants";
 import { Cliente } from "../types/types";
 import { logger } from "../utils/logger";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: "100vh",
-    backgroundColor: "#ecf0f1",
-    paddingBottom: theme.spacing(4),
-    transition: "margin-left 0.3s ease",
-    marginLeft: (props: { isExpanded: boolean }) =>
-      props.isExpanded ? "280px" : "80px",
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  header: {
-    marginBottom: theme.spacing(3),
-    color: "#2c3e50",
-    fontWeight: 600,
-  },
-  filterSection: {
-    marginBottom: theme.spacing(3),
-    backgroundColor: "#fff",
-    padding: theme.spacing(2),
-    borderRadius: "8px",
-  },
-  tableContainer: {
-    backgroundColor: "#fff",
-    borderRadius: "8px",
-  },
-  tableHeader: {
-    backgroundColor: "#34495e",
-    "& th": {
-      color: "#fff",
-      fontWeight: 600,
-    },
-  },
-  actionButton: {
-    marginLeft: theme.spacing(1),
-  },
-  addButton: {
-    backgroundColor: "#27ae60",
-    color: "#fff",
-    "&:hover": {
-      backgroundColor: "#229954",
-    },
-  },
-}));
+import ConsultaClientesStyles from "../styles/ConsultaClientesStyles";
+import { ArrowLeft } from "@material-ui/icons";
 
 const ConsultaClientes: React.FC = () => {
   const navigate = useNavigate();
@@ -104,7 +57,7 @@ const ConsultaClientes: React.FC = () => {
   }
 
   const { isExpanded } = drawerContext;
-  const classes = useStyles({ isExpanded });
+  const classes = ConsultaClientesStyles({ isExpanded });
 
   const [identificacion, setIdentificacion] = useState<string>("");
   const [nombre, setNombre] = useState<string>("");
@@ -222,19 +175,29 @@ const ConsultaClientes: React.FC = () => {
           mb={3}
         >
           <h1 className={classes.header}>Consulta de Clientes</h1>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            className={classes.addButton}
-            onClick={handleCreateCliente}
-          >
-            Nuevo Cliente
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              className={classes.addButton}
+              onClick={handleCreateCliente}
+            >
+              Nuevo Cliente
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<ArrowLeft />}
+              className={classes.addButton}
+              onClick={handleNavigateHome}
+            >
+              Regresar 
+            </Button>
+          </div>
         </Box>
 
         <Paper className={classes.filterSection}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={5}>
               <TextField
                 fullWidth
                 label="Identificación"
@@ -244,7 +207,7 @@ const ConsultaClientes: React.FC = () => {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={5} >
               <TextField
                 fullWidth
                 label="Nombre"
@@ -254,7 +217,7 @@ const ConsultaClientes: React.FC = () => {
                 size="small"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={2} container alignItems="center">
               <Button
                 variant="contained"
                 color="primary"
@@ -275,7 +238,6 @@ const ConsultaClientes: React.FC = () => {
                 <TableCell>Identificación</TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Apellidos</TableCell>
-                <TableCell>Teléfono</TableCell>
                 <TableCell align="center">Acciones</TableCell>
               </TableRow>
             </TableHead>
@@ -292,12 +254,12 @@ const ConsultaClientes: React.FC = () => {
                     <TableCell>{cliente.identificacion}</TableCell>
                     <TableCell>{cliente.nombre}</TableCell>
                     <TableCell>{cliente.apellidos}</TableCell>
-                    <TableCell>{cliente.telefonoCelular}</TableCell>
                     <TableCell align="center">
                       <IconButton
                         size="small"
                         onClick={() => handleEditCliente(cliente)}
                         className={classes.actionButton}
+                        title="Editar"
                       >
                         <EditIcon color="primary" />
                       </IconButton>
@@ -305,6 +267,7 @@ const ConsultaClientes: React.FC = () => {
                         size="small"
                         onClick={() => handleOpenDeleteDialog(cliente)}
                         className={classes.actionButton}
+                        title="Eliminar"
                       >
                         <DeleteIcon color="error" />
                       </IconButton>
@@ -335,7 +298,7 @@ const ConsultaClientes: React.FC = () => {
           <Button onClick={handleCloseDeleteDialog}>Cancelar</Button>
           <Button
             onClick={handleConfirmDelete}
-            color="secondary"
+            color="inherit"
             disabled={deleting}
           >
             {deleting ? <CircularProgress size={24} /> : "Eliminar"}

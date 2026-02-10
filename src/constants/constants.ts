@@ -62,14 +62,14 @@ export const FIELD_VALIDATION = {
     MAX: 200
   },
   PASSWORD: {
-    MIN: 9,
+    MIN: 8,
     MAX: 20
   }
 } as const;
 
 export const REGEX = {
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{9,20}$/,
+  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/,
   PHONE: /^[0-9\-+()\s]{1,20}$/,
   IDENTIFIER: /^[a-zA-Z0-9-]{1,20}$/,
   SEXO: /^[MF]$/
@@ -78,7 +78,7 @@ export const REGEX = {
 export const VALIDATION_MESSAGES = {
   REQUIRED: 'Este campo es requerido',
   INVALID_EMAIL: 'El email no es válido',
-  PASSWORD_WEAK: 'La contraseña debe tener 9-20 caracteres, una mayúscula, una minúscula y números',
+  PASSWORD_WEAK: 'La contraseña debe tener 8-20 caracteres, una mayúscula, una minúscula y números',
   PASSWORD_MISMATCH: 'Las contraseñas no coinciden',
   MAX_LENGTH: (max: number) => `No puede exceder ${max} caracteres`,
   MIN_LENGTH: (min: number) => `Debe tener al menos ${min} caracteres`,

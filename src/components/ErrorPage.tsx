@@ -1,49 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Box, Typography, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import ErrorIcon from '@material-ui/icons/Error';
 import { ROUTES } from '../constants/constants';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#ecf0f1'
-  },
-  container: {
-    textAlign: 'center',
-    padding: theme.spacing(4)
-  },
-  icon: {
-    fontSize: '5rem',
-    color: '#e74c3c',
-    marginBottom: theme.spacing(2)
-  },
-  title: {
-    color: '#2c3e50',
-    fontWeight: 600,
-    marginBottom: theme.spacing(1)
-  },
-  description: {
-    color: '#7f8c8d',
-    marginBottom: theme.spacing(3)
-  },
-  button: {
-    backgroundColor: '#34495e',
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontWeight: 600,
-    '&:hover': {
-      backgroundColor: '#2c3e50'
-    }
-  }
-}));
+import ErrorPageStyles from '../styles/ErrorPageStyles';
 
 const ErrorPage: React.FC = () => {
-  const classes = useStyles();
+  const classes = ErrorPageStyles();
   const navigate = useNavigate();
 
   const handleReturn = (): void => {
