@@ -384,12 +384,18 @@ const MantenimientoClientes: React.FC = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label="Otro Teléfono"
+                    label={
+                      <span>
+                        Otro Teléfono{" "}
+                        <span className={classes.asterisk}>*</span>
+                      </span>
+                    }
                     name="otroTelefono"
                     value={formData.otroTelefono || ""}
                     onChange={handleInputChange}
                     error={!!errors.otroTelefono}
                     helperText={errors.otroTelefono}
+                    InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
                 <Grid item xs={12}>
